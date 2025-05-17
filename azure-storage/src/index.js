@@ -34,6 +34,9 @@ app.get("/video", async (req, res) => {
         "Content-Type": "video/mp4",
     });
 
-    app.listen(PORT);
-    console.log(`Server is running on port ${PORT}`);
-}
+    const response = await blobClient.download();
+    response.readableStreamBody.pipe(res);
+});
+
+app.listen(PORT);
+console.log(`Server is running on port ${PORT}`);
